@@ -24,7 +24,38 @@ public class Program
 
         Console.WriteLine(f.ValueAt());
         Console.WriteLine(f.ToString());
+        
+        // With Factory
+
+        Factory? factory = null;
+        if (type == 1)
+            factory = new FactoryImpl1();
+        else if (type == 2)
+            factory = new FactoryImpl2();
+        else
+        {
+            Console.WriteLine("Так не можна! Лише 1 або 2!!!");
+            return;
+        }
+
+        Console.WriteLine(factory.FactoryMethod().ValueAt());
+        Console.WriteLine(factory.FactoryMethod().ToString());
     }
+}
+
+public abstract class Factory
+{
+    public abstract Fraction FactoryMethod();
+}
+
+public class FactoryImpl1 : Factory
+{
+    public override Fraction FactoryMethod() => new(1, 2);
+}
+
+public class FactoryImpl2 : Factory
+{
+    public override Fraction FactoryMethod() => new Fraction3D([2, 3, 2], 2);
 }
 
 public class Fraction
